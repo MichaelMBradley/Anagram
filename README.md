@@ -1,3 +1,3 @@
 # Anagram
 
- Using primes to do various fun things with words.
+Using primes to do various fun things with words.
