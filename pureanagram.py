@@ -39,7 +39,7 @@ def encode_words_file(file: str = "words_alpha") -> dict[int: list[str]]:
 
 	Parameters
 	----------
-	file: str = "words_alpha"
+	file: str, optional
 		The file to encode.
 
 	Returns
@@ -60,7 +60,7 @@ def encode_words_file(file: str = "words_alpha") -> dict[int: list[str]]:
 	return encoded
 
 
-def get_anagrams(encoded: dict[int: [str]], word: str) -> list[str]:
+def get_anagrams(encoded: dict[int: list[str]], word: str) -> list[str]:
 	"""
 	Finds all anagrams of a given string.
 
