@@ -81,7 +81,7 @@ def get_all(file: str = "words_alpha") -> list[str]:
 
 	Parameters
 	----------
-	file : str (optional)
+	file : str, optional
 		The file to read the words from, assuming it is located in 'words/' and is a '.txt' file.
 
 	Returns
