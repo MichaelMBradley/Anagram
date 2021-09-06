@@ -1,4 +1,5 @@
 from math import sqrt
+from os.path import dirname
 
 
 class InvalidCharacterException(Exception):
@@ -94,7 +95,7 @@ def get_all(file: str = "words_alpha") -> list[str]:
     list[str]
             Every word in the file.
     """
-    with open(f"./words/{file}.txt", "r") as words:
+    with open(f"{dirname(dirname(__file__))}/words/{file}.txt", "r") as words:
         return words.read().split()
 
 
@@ -130,7 +131,3 @@ def get_n_primes(n) -> list[int]:
                 break
         i += 2
     return primes
-
-
-if __name__ == "__main__":
-    print(get_n_primes(10))
