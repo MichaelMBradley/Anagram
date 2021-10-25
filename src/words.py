@@ -5,15 +5,18 @@ from os.path import dirname
 
 
 ANAGRAM_FILE = f"{dirname(dirname(__file__))}\\words"
-Decoder = dict[int, list[str]]
 
 
 class AnagramFinder(ABC):
 	primes: list[int]
 
 	def __init__(self, words_file: str, n_primes: int) -> None:
+		# The goal of this project is to mes around with using primes to find anagrams,
+		# so n primes must always be generated
 		self.get_n_primes(n_primes)
+		# Encodes the words in the given file using abstract methods
 		self.encode_words_file(words_file)
+		# Once this code is run, a properly implemented subclass will be able to find anagrams immediately
 
 	@abstractmethod
 	def add_word(self, word: str) -> None:
@@ -140,7 +143,7 @@ def runner(anagram_finder: AnagramFinder) -> None:
 	:param AnagramFinder anagram_finder: object to find anagrams of input with
 	"""
 	print("'*' ends execution.")
-	# Get input, end loop if it is a '*', otherwise run given Callable
+	# Get input, end loop if it is a '*', otherwise find anagrams using given object
 	while (command := input("> ")) != "*":
 		if command != "":
 			print(anagram_finder.anagrams_to_string(command))
