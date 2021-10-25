@@ -1,3 +1,8 @@
+# Wordlists
+words/intersect.txt
+words/johnlawler.txt
+words/wwf.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
