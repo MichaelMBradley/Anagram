@@ -23,7 +23,7 @@ class AnagramFinder(ABC):
 		:param str words_file: the file to read valid words from
 		:param int n_primes: the number of primes to generate
 		"""
-		# The goal of this project is to mes around with using primes to find anagrams,
+		# The goal of this project is to mess around with using primes to find anagrams,
 		# so n primes must always be generated
 		self.get_n_primes(n_primes)
 		# Encodes the words in the given file using abstract methods

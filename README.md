@@ -6,15 +6,11 @@ The wildcard character is `?`.
 
 ## Files
 
-### Implemented
-
 * `pureanagram.py` searches for perfect anagrams of an input word
-* * `scrabble.py` outputs words that can be formed by any number of letters from the input string (including wildcards!)
-
-### TBD
-
-* `crossword.py` outputs words that fit a given sequence of wildcards and fixed characters (e.g. `D?N???U? -> DINOSAUR`)
+* `scrabble.py` outputs words that can be formed by any number of letters from the input string (including wildcards!)
 * `sentence.py` outputs sequences of words that can be formed from the input (e.g. `abc -> "ab c", "a bc"`)
+  * Would not recommend running this one with larger word lists or input words much longer than 10 characters (it's fairly inefficient)
+* `crossword.py` outputs words that fit a given sequence of wildcards and fixed characters (e.g. `D?N???U? -> DINOSAUR`)
 
 ## Words
 
@@ -25,3 +21,11 @@ Alternatively, a smaller word list will be of high quality but may lack some com
 * `words_alpha.txt` is sourced from [dwyl/english-words](https://github.com/dwyl/english-words), which was in turn sourced from InfoChimp
 * `corncob_lowercase.txt` is sourced from [mieliestronk.com/wordlist.html](http://www.mieliestronk.com/wordlist.html)
 
+## TODO
+
+* finish writing test cases
+* complete documentation
+* implement custom errors (specifically wrt `sentence.py line 22`)
+* make `sentence.py` run faster while I'm at it
+* add more experiments?
+* replace wildcard character?

@@ -1,18 +1,41 @@
-from src.words import runner, AnagramFinder
+from src.words import AnagramFinder, get_letter_index, runner
 
 
 class CrosswordSolver(AnagramFinder):
+	"""
+	Finds words with letters at given positions. Unknown letters should be represented with '?'
+	"""
+
+	encodings: dict[int: str]
+
 	def __init__(self, words_file: str):
-		super().__init__(words_file, 0)
+		"""
+		:param str words_file: the file to read valid words from
+		"""
+		self.encodings = {}
+		super().__init__(words_file, 26 * self.LONGEST_WORD)
 
 	def add_word(self, word: str):
-		pass
+		self.encodings[self.encode_word(word)] = word
 
 	def encode_word(self, word: str) -> int:
-		pass
+		product = 1
+
+		for i, char in enumerate(word):
+			if char != "?":
+				product *= self.primes[get_letter_index(char) + (26 * i)]
+
+		return product
 
 	def get_anagrams(self, word: str) -> list[str]:
-		pass
+		encoding = self.encode_word(word)
+		valid = [self.encodings[enc] for enc in self.encodings.keys() if
+											enc % encoding == 0 and len(self.encodings[enc]) == len(word)]
+
+		if valid not in [[], [word]]:
+			return valid
+		else:
+			raise ValueError(f"{word} -> no anagrams found.")
 
 
 if __name__ == "__main__":
