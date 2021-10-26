@@ -8,13 +8,13 @@ The wildcard character is `?`.
 
 ### Implemented
 
-* `pureanagram.py` searches for perfect anagrams of input words
+* `pureanagram.py` searches for perfect anagrams of an input word
+* * `scrabble.py` outputs words that can be formed by any number of letters from the input string (including wildcards!)
 
 ### TBD
 
-* `scrabble.py` searches for words that can be formed by the input string (including wildcards!)
-* `crossword.py` searches for words that fit a given sequence of wildcards and fixed characters (eg. `D?N???U?`)
-
+* `crossword.py` outputs words that fit a given sequence of wildcards and fixed characters (e.g. `D?N???U? -> DINOSAUR`)
+* `sentence.py` outputs sequences of words that can be formed from the input (e.g. `abc -> "ab c", "a bc"`)
 
 ## Words
 

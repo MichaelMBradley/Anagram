@@ -1,4 +1,4 @@
-from words import runner, AnagramFinder
+from src.words import runner, AnagramFinder
 
 
 class CrosswordSolver(AnagramFinder):

@@ -8,9 +8,21 @@ ANAGRAM_FILE = f"{dirname(dirname(__file__))}\\words"
 
 
 class AnagramFinder(ABC):
+	"""
+	Provides a base class to streamline implementation of word-finding algorithms.
+
+	A subclass must implement the add_word() and get_anagrams() methods.
+	"""
+	LONGEST_WORD = 32
 	primes: list[int]
 
 	def __init__(self, words_file: str, n_primes: int) -> None:
+		"""
+		Initialize primes, then encode all words in the given file.
+
+		:param str words_file: the file to read valid words from
+		:param int n_primes: the number of primes to generate
+		"""
 		# The goal of this project is to mes around with using primes to find anagrams,
 		# so n primes must always be generated
 		self.get_n_primes(n_primes)
@@ -47,16 +59,23 @@ class AnagramFinder(ABC):
 			# Invalid character in word
 			return str(e)
 
-	@abstractmethod
 	def encode_word(self, word: str) -> int:
 		"""
-		Encode word in relevant manner
+		Encodes a string into an integer equalling the product of the prime associated with each letter in the string.
 
-		:param word: word to encode
-		:return: value of encoding
+		:param str word: word to be encoded
+		:returns: encoding of word
 		:rtype: int
+		:raises ValueError: if a character not in [a, z] | [A, Z] is in the input string, or if the word is too long
 		"""
-		pass
+		if len(word) >= self.LONGEST_WORD:
+			raise ValueError(f"{word[:3]}... -> word is too long! (length >= {self.LONGEST_WORD}).")
+
+		product = 1
+		for char in word:
+			product *= self.primes[get_letter_index(char)]
+
+		return product
 
 	def encode_words_file(self, file: str) -> None:
 		"""
@@ -64,7 +83,6 @@ class AnagramFinder(ABC):
 
 		:param str file: the file to read words from
 		"""
-
 		try:
 			with open(f"{ANAGRAM_FILE}\\{file}.txt", "r") as words:
 				for word in words.read().split():
@@ -134,6 +152,25 @@ class AnagramFinder(ABC):
 			potential_prime += 2 if small_jump else 4
 
 		self.primes = found_primes
+
+
+def get_letter_index(char: str) -> int:
+	"""
+	Returns the position of a letter in the alphabet, where a=0 and z=25
+
+	:param str char: character to index
+	:return: index of character
+	:rtype: int
+	"""
+	if len(char) != 1:
+		raise ValueError(f"{char} -> does not have length 1.")
+	else:
+		# Make character lowercase, offset by ASCII of 'a'
+		ind = ord(char.lower()) - ord("a")
+		if 0 <= ind < 26:
+			return ind
+		else:
+			raise ValueError(f"{char} -> not in [a, z] | [A, Z].")
 
 
 def runner(anagram_finder: AnagramFinder) -> None:
