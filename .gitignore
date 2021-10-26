@@ -3,6 +3,10 @@ words/intersect.txt
 words/johnlawler.txt
 words/wwf.txt
 
+# JetBrains
+
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
