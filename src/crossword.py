@@ -34,8 +34,8 @@ class CrosswordSolver(AnagramFinder):
 
 		if valid not in [[], [word]]:
 			return valid
-		else:
-			raise ValueError(f"{word} -> no anagrams found.")
+
+		raise ValueError(f"{word} -> no anagrams found.")
 
 
 if __name__ == "__main__":

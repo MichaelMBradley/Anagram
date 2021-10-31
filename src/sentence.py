@@ -21,8 +21,7 @@ class SentenceFinder(ScrabbleWordFinder):
 		except ValueError as e:
 			if str(e).split(" ")[-2] == "rearrangements":
 				raise ValueError(f"{word} -> no anagrams found.")
-			else:
-				raise e
+			raise e
 
 	def get_anagrams_by_attributes(
 			self, encoded_word: int, length_of_word: int, relevant_encodings: list[dict[int: list[str]]]) -> list[str]:

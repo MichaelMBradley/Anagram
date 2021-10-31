@@ -37,7 +37,6 @@ class AnagramFinder(ABC):
 
 		:param str word: the word to save
 		"""
-		pass
 
 	def anagrams_to_string(self, word: str) -> str:
 		"""
@@ -105,7 +104,6 @@ class AnagramFinder(ABC):
 		:return: list of valid anagrams
 		:rtype: list[str]
 		"""
-		pass
 
 	def get_n_primes(self, n: int) -> None:
 		"""
@@ -164,13 +162,13 @@ def get_letter_index(char: str) -> int:
 	"""
 	if len(char) != 1:
 		raise ValueError(f"{char} -> does not have length 1.")
-	else:
-		# Make character lowercase, offset by ASCII of 'a'
-		ind = ord(char.lower()) - ord("a")
-		if 0 <= ind < 26:
-			return ind
-		else:
-			raise ValueError(f"{char} -> not in [a, z] | [A, Z].")
+
+	# Make character lowercase, offset by ASCII of 'a'
+	ind = ord(char.lower()) - ord("a")
+	if 0 <= ind < 26:
+		return ind
+
+	raise ValueError(f"{char} -> not in [a, z] | [A, Z].")
 
 
 def runner(anagram_finder: AnagramFinder) -> None:

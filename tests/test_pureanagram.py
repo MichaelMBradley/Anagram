@@ -12,7 +12,7 @@ class TestPureAnagram(TestCase):
 		# Ensure that output is formatted properly
 		self.assertIsInstance(pa_tester.anagrams_to_string(""), str)
 		# While this could be cleaned up with a loop, it would almost certainly look messier
-		self.assertEqual(pa_tester.anagrams_to_string("#"), "# -> # is an invalid character.")
+		self.assertEqual(pa_tester.anagrams_to_string("#"), "# -> not in [a, z] | [A, Z].")
 		self.assertEqual(pa_tester.anagrams_to_string("a"), "a -> no anagrams found.")
 		self.assertEqual(pa_tester.anagrams_to_string("ab"), "ab -> ba.")
 		self.assertEqual(pa_tester.anagrams_to_string("abc"), "abc -> bac, cab.")

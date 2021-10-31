@@ -32,8 +32,8 @@ class PureAnagram(AnagramFinder):
 
 		if encoding not in self.encoded_words.keys() or self.encoded_words[encoding] == [word]:
 			raise ValueError(f"{word} -> no anagrams found.")
-		else:
-			return self.encoded_words[encoding]
+
+		return self.encoded_words[encoding]
 
 
 if __name__ == "__main__":
