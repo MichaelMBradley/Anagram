@@ -20,7 +20,7 @@ class AnagramFinderTester(AnagramFinder):
 		pass
 
 
-af_tester = AnagramFinderTester("words_alpha")
+af_tester = AnagramFinderTester("words_alpha.txt")
 
 
 class TestWords(TestCase):
@@ -40,7 +40,7 @@ class TestWords(TestCase):
 		word_intersection()
 		with open(f"{ANAGRAM_FILE}\\intersect.txt") as intersect:
 			# Intersect word list output depends on other word lists in directory,
-			# so I only test that the file exists and has words in it
+			# so the only test is that the file exists and has words in it
 			self.assertTrue(len(intersect.read().split()) > 0)
 
 

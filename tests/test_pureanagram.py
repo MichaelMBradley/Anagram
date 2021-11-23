@@ -2,9 +2,10 @@ import unittest
 from unittest import TestCase
 
 from src.pureanagram import PureAnagram
+from src.words import AnagramError, LetterError
 
 
-pa_tester = PureAnagram("words_alpha")
+pa_tester = PureAnagram("words_alpha.txt")
 
 
 class TestPureAnagram(TestCase):
@@ -12,8 +13,8 @@ class TestPureAnagram(TestCase):
 		# Ensure that output is formatted properly
 		self.assertIsInstance(pa_tester.anagrams_to_string(""), str)
 		# While this could be cleaned up with a loop, it would almost certainly look messier
-		self.assertEqual(pa_tester.anagrams_to_string("#"), "# -> not in [a, z] | [A, Z].")
-		self.assertEqual(pa_tester.anagrams_to_string("a"), "a -> no anagrams found.")
+		self.assertEqual(pa_tester.anagrams_to_string("#"), str(LetterError("#")))
+		self.assertEqual(pa_tester.anagrams_to_string("a"), str(AnagramError("a")))
 		self.assertEqual(pa_tester.anagrams_to_string("ab"), "ab -> ba.")
 		self.assertEqual(pa_tester.anagrams_to_string("abc"), "abc -> bac, cab.")
 
@@ -28,17 +29,13 @@ class TestPureAnagram(TestCase):
 			with self.assertRaises(ValueError):
 				pa_tester.encode_word(bad_char)
 
-	def test_encode_words_file(self):
-		self.assertIsInstance(pa_tester.encoded_words, dict)
-		self.assertEqual(pa_tester.encoded_words[2], ["a"])
-
 	def test_get_anagrams(self):
 		self.assertIsInstance(pa_tester.encoded_words, dict)
 		test_encoded = pa_tester.get_anagrams("this")
 		for anagram in ["hits", "shit", "this"]:
 			self.assertTrue(anagram in test_encoded)
 		for bad_str in ["", "a", "yu"]:
-			with self.assertRaises(ValueError):
+			with self.assertRaises(AnagramError):
 				pa_tester.get_anagrams(bad_str)
 
 
