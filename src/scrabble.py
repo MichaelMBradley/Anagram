@@ -1,12 +1,12 @@
-from src.words import AnagramFinder, runner
+from src.words import AnagramError, AnagramFinder, runner, WILDCARD
 
 
 class ScrabbleWordFinder(AnagramFinder):
-	"""
+	f"""
 	Finds all words that can be formed from the letters of the input string.
 	Named ScrabbleWordFinder as it can be used for that purpose, but unlike Scrabble contains no length limit.
 
-	Use ? as a wildcard.
+	Use {WILDCARD} as a wildcard.
 	"""
 	encoded: list[dict[int: list[str]]]
 
@@ -36,15 +36,18 @@ class ScrabbleWordFinder(AnagramFinder):
 
 	def get_anagrams(self, word: str) -> list[str]:
 		valid_words: list[str] = []
-		encoded_word = self.encode_word("".join(filter(lambda c: c != "?", word)))
+		encoded_word = self.encode_word("".join(filter(lambda c: c != WILDCARD, word)))
 
 		for word_length in range(len(word), 0, -1):
 			for encoding in self.encoded[word_length].keys():
 				if max(encoded_word, encoding) % min(encoding, encoded_word) == 0:
 					valid_words += self.encoded[word_length][encoding]
 
+		if not valid_words:
+			raise AnagramError(word)
+
 		return valid_words
 
 
 if __name__ == "__main__":
-	runner(ScrabbleWordFinder("words_alpha"))
+	runner(ScrabbleWordFinder("words_alpha.txt"))

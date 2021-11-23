@@ -15,7 +15,7 @@ The wildcard character is `?`.
 ## Words
 
 While there are more word lists available on the internet that will work with this code (words can be capitalized, but must be seperated by newline), I have only included two with this code (plus the ability to find their intersection).
-Be careful with how you select a word list as a larger list will have every word you might want to use, but it will also have many strings you may not consider words.
+Be careful with how you select a word list, as a larger list will have every word you might want to use, but it will also have many strings you may not consider words.
 Alternatively, a smaller word list will be of high quality but may lack some common words.
 
 * `words_alpha.txt` is sourced from [dwyl/english-words](https://github.com/dwyl/english-words), which was in turn sourced from InfoChimp
@@ -23,9 +23,5 @@ Alternatively, a smaller word list will be of high quality but may lack some com
 
 ## TODO
 
-* finish writing test cases
-* complete documentation
-* implement custom errors (specifically wrt `sentence.py line 22`)
-* make `sentence.py` run faster while I'm at it
+* optimize `sentence.py`
 * add more experiments?
-* replace wildcard character?

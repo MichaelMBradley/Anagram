@@ -1,9 +1,9 @@
-from src.words import AnagramFinder, get_letter_index, runner
+from src.words import AnagramError, AnagramFinder, get_letter_index, runner, WILDCARD
 
 
 class CrosswordSolver(AnagramFinder):
-	"""
-	Finds words with letters at given positions. Unknown letters should be represented with '?'
+	f"""
+	Finds words with letters at given positions. Unknown letters should be represented with '{WILDCARD}'
 	"""
 
 	encodings: dict[int: str]
@@ -22,7 +22,7 @@ class CrosswordSolver(AnagramFinder):
 		product = 1
 
 		for i, char in enumerate(word):
-			if char != "?":
+			if char != WILDCARD:
 				product *= self.primes[get_letter_index(char) + (26 * i)]
 
 		return product
@@ -35,8 +35,8 @@ class CrosswordSolver(AnagramFinder):
 		if valid not in [[], [word]]:
 			return valid
 
-		raise ValueError(f"{word} -> no anagrams found.")
+		raise AnagramError(word)
 
 
 if __name__ == "__main__":
-	runner(CrosswordSolver("words_alpha"))
+	runner(CrosswordSolver("words_alpha.txt"))

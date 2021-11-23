@@ -1,4 +1,4 @@
-from src.words import runner
+from src.words import AnagramError, runner, WILDCARD
 from src.scrabble import ScrabbleWordFinder
 
 
@@ -8,9 +8,11 @@ class SentenceFinder(ScrabbleWordFinder):
 
 	Slow as hell on large inputs.
 	"""
+
 	def get_anagrams(self, word: str) -> list[str]:
 		try:
-			encoded_word = self.encode_word("".join(filter(lambda c: c != "?", word)))
+			encoded_word = self.encode_word("".join(filter(lambda c: c != WILDCARD, word)))
+			# FIXME: This is nigh-unreadable
 			return self.get_anagrams_by_attributes(
 				encoded_word,
 				len(word),
@@ -19,12 +21,15 @@ class SentenceFinder(ScrabbleWordFinder):
 					for word_len in self.encoded
 				])
 		except ValueError as e:
-			if str(e).split(" ")[-2] == "rearrangements":
-				raise ValueError(f"{word} -> no anagrams found.")
 			raise e
 
+	# TODO: Optimize
 	def get_anagrams_by_attributes(
-			self, encoded_word: int, length_of_word: int, relevant_encodings: list[dict[int: list[str]]]) -> list[str]:
+			self,
+			encoded_word: int,
+			length_of_word: int,
+			relevant_encodings: list[dict[int: list[str]]]
+	) -> list[str]:
 		"""
 		Allows for easier recursion by just using properties of words, not the words themselves.
 
@@ -63,10 +68,10 @@ class SentenceFinder(ScrabbleWordFinder):
 							valid_words.append(scrabble_word)
 
 		if len(valid_words) == 0:
-			raise ValueError(f"enc={encoded_word} len={length_of_word} -> no rearrangements found.")
+			raise AnagramError(str(encoded_word))
 
 		return valid_words
 
 
 if __name__ == "__main__":
-	runner(SentenceFinder("intersect"))
+	runner(SentenceFinder("intersect.txt"))

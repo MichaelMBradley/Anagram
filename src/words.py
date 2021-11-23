@@ -5,6 +5,36 @@ from os.path import dirname
 
 
 ANAGRAM_FILE = f"{dirname(dirname(__file__))}\\words"
+WILDCARD = '?'
+
+
+class AnagramError(ValueError):
+	"""
+	Specifically for when an input string has no known anagrams.
+	"""
+
+	def __init__(self, word: str):
+		super().__init__(f"{word} -> has no known anagrams.")
+		self.word = word
+
+	def __repr__(self):
+		return f"AnagramError: {self.word}"
+
+
+class LetterError(ValueError):
+	"""
+	Specifically for when an input string has no known anagrams.
+	"""
+
+	def __init__(self, char: str):
+		if char == WILDCARD:
+			super().__init__(f"{WILDCARD} -> wildcard character is not supported in this function.")
+		else:
+			super().__init__(f"{char} -> not in [a, z] | [A, Z].")
+		self.char = char
+
+	def __repr__(self):
+		return f"AnagramError: {self.char}"
 
 
 class AnagramFinder(ABC):
@@ -83,7 +113,7 @@ class AnagramFinder(ABC):
 		:param str file: the file to read words from
 		"""
 		try:
-			with open(f"{ANAGRAM_FILE}\\{file}.txt", "r") as words:
+			with open(f"{ANAGRAM_FILE}\\{file}", "r") as words:
 				for word in words.read().split():
 					try:
 						self.add_word(word)
@@ -92,7 +122,7 @@ class AnagramFinder(ABC):
 						print(str(e))
 		except OSError as e:
 			# Probably caused by trying to access a file that doesn't exist
-			# Tell the user about it and return an empty list
+			# Tell the user about it and do nothing
 			print(str(e))
 
 	@abstractmethod
@@ -161,14 +191,14 @@ def get_letter_index(char: str) -> int:
 	:rtype: int
 	"""
 	if len(char) != 1:
-		raise ValueError(f"{char} -> does not have length 1.")
+		raise ValueError(f"{char} -> is not a single character.")
 
 	# Make character lowercase, offset by ASCII of 'a'
 	ind = ord(char.lower()) - ord("a")
 	if 0 <= ind < 26:
 		return ind
 
-	raise ValueError(f"{char} -> not in [a, z] | [A, Z].")
+	raise LetterError(char)
 
 
 def runner(anagram_finder: AnagramFinder) -> None:
@@ -210,7 +240,3 @@ def word_intersection() -> None:
 			# Create a new line if the word is not the last
 			if i != len(wordlists[0]) - 1:
 				best.write("\n")
-
-
-if __name__ == "__main__":
-	word_intersection()

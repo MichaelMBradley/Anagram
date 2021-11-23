@@ -1,4 +1,4 @@
-from src.words import AnagramFinder, runner
+from src.words import AnagramError, AnagramFinder, runner
 
 
 class PureAnagram(AnagramFinder):
@@ -31,10 +31,10 @@ class PureAnagram(AnagramFinder):
 		encoding = self.encode_word(word)
 
 		if encoding not in self.encoded_words.keys() or self.encoded_words[encoding] == [word]:
-			raise ValueError(f"{word} -> no anagrams found.")
+			raise AnagramError(word)
 
 		return self.encoded_words[encoding]
 
 
 if __name__ == "__main__":
-	runner(PureAnagram("words_alpha"))
+	runner(PureAnagram("words_alpha.txt"))
